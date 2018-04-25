@@ -44,7 +44,7 @@
       exact_count: 1
       count_tag:
         role: "{{ item }}"
-      instance_tags: 
+      instance_tags:
         role: "{{ item }}"
     with_items: "{{ inst_roles }}"
     register: ec2
