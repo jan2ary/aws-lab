@@ -3,6 +3,10 @@
 - name: Create AWS resources
   hosts: localhost
   connection: local
+  vars:
+    inst_roles:
+      - jenkins
+      - application
   gather_facts: False
   tasks:
   - name: Create a security group
@@ -37,9 +41,10 @@
           volume_type: gp2
           volume_size: 60
           delete_on_termination: true
-      exact_count: 3
+      exact_count: 1
       count_tag:
-         Name: aws-demo
-      instance_tags:
-         Name: aws-demo
+        role: "{{ item }}"
+      instance_tags: 
+        role: "{{ item }}"
+    with_items: "{{ inst_roles }}"
     register: ec2
